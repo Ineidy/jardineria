@@ -36,4 +36,27 @@ def getAllClientPaisRegionCiudad(pais, region=None, ciudad=None):
             clientZone.append(val)
     return clientZone
 
-def getAllCLientCreditCiudad(apellido)
+
+#cinco filtros
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#clase profe
