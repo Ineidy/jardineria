@@ -37,7 +37,18 @@ def getAllClientPaisRegionCiudad(pais, region=None, ciudad=None):
     return clientZone
 
 
-#cinco filtros
+def getAllNombrePais(pais):
+    nombrePais = []
+    for val in cli.clientes:
+        if (val.get("pais") == pais):
+            nombrePais.append(
+                {
+                "nombre":val.get('nombre_cliente'),
+                "pais": val.get('pais')
+                }
+            )
+
+    return nombrePais
 
 
 

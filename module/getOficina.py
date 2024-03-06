@@ -17,8 +17,8 @@ def getAllCiudadTelefono(pais):
         if (val.get("pais") == pais):
             ciudadTelefono.append({
                 "ciudad": val.get("ciudad"),
-                "telefono":val.get("telefono",)
+                "telefono":val.get("telefono"),
                 "oficina":val.get("oficina"),
                 "pais":val.get("pais")
-        })
+            })
             
