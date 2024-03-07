@@ -7,4 +7,4 @@ import module.getpago as pa
 import module.getPedidos as pedi
 
 
-print(tabulate(pedi.getAllCodigoEstado(), tablefmt = 'grid'))
+print(tabulate(pedi.getAllRechazados2009(), tablefmt = 'rounded_grid'))
