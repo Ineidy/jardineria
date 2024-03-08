@@ -2,6 +2,7 @@
 
 import storage.pedido as pedi
 from datetime import datetime
+from tabulate import tabulate
 
 
 def getAllCodigoEstado():
@@ -65,15 +66,53 @@ def getAllCodigosFechaEsoperaEntregaMenosDosDias():
 
     return PedidosAceptados
     
+#pedidos rechazados en 2009
 
-
-def getAllRechazados2009():
-    rechazados2009 = []
+def getAllPedidosRechazados():
+    pedidosRechazados = []
     for val in pedi.pedido:
-        if (val.get('estado') == 'Rechazado') and  val.get('estado').startswith("2009"):
-            rechazados2009.append({
-                'codigo_pedido': val.get('codigo_pedido'),
-                'estado': val.get('Estado')
-            })
+        if("2009") in val.get("fecha_pedido") and val.get("estado") is ("Rechazado"):
+            pedidosRechazados.append({
+                    "codigo_pedido": val.get("codigo_pedido"),
+                    "estado_pedido": val.get("estado")
+                })
+    return pedidosRechazados
             
-            
+
+# Devuelve un listado de todos los pedidos q han sido entregados en el mes de enero de cualquier año
+def getAllPedidosEntregadosEnero():
+    pedidosEntregadosMes = []
+    for val in pedi.pedido:
+        fecha_entrega = val.get("fecha_entrega")
+        if fecha_entrega:
+            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
+            start = datetime.strptime(date_1, "%d/%m/%Y")
+            if start.month == 1 and val.get("estado") == "Entregado":
+                pedidosEntregadosMes.append({
+                    "codigo_pedido": val.get("codigo_pedido"),
+                    "codigo_de_cliente": val.get("codigo_cliente"),
+                    "fecha_de_entrega": val.get("fecha_entrega"),
+                    "estado_pedido": val.get("estado")
+                })
+    return pedidosEntregadosMes
+
+
+def menu():
+    print("""
+
+   ___  _______  ____  ___  ______________  ___  ____  ___  _______  _______  ____  ____
+  / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / _ \/ __/ _ \/  _/ _ \/ __ \/ __/
+ / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / ___/ _// // // // // / /_/ /\ \  
+/_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /_/  /___/____/___/____/\____/___/  
+                                                                                        
+                            
+                            1.
+                            2.
+                            3.
+                            4.
+                            5. 
+
+
+
+""")
+
