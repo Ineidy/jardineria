@@ -6,8 +6,7 @@ import module.getEmpleados as empleado
 import module.getpago as pa
 import module.getPedidos as pedi
 
-if (__name__ == "__main__"):
-
+if (__name__ == '__main__'):
     print("""
     __  ___                    ____       _            _             __
    /  |/  /__  ____  __  __   / __ \_____(_)___  _____(_)___  ____ _/ /
@@ -22,8 +21,9 @@ if (__name__ == "__main__"):
                             3. empleados
                             4. pedidos 
                             5. pagos
-      """)
-    opcion = int(input("\nSeleccione una de las opciones: "))
+""")
+    
+    opcion = int(input("\n Seleccione una de las opciones: "))
     if(opcion == 1):
         cli.menu()
     elif(opcion == 2):

@@ -1,15 +1,19 @@
 import module.getpago as pa
 from tabulate import tabulate
 
-# Devuelve un listado con el codigo de cliente de aquellos clientes q realizaron algun pago en 2008. Tenga en cuenta q debera eliminar aquellos codigos de cliente q aparezcan repetidos.
+#Devuelve un listado con el codigo de cliente de aquellos 
+#clientes q realizaron algun pago en 2008. 
+#Tenga en cuenta q debera eliminar aquellos codigos de cliente q 
+#aparezcan repetidos.
+
+
 def getAllCodigoClienteFecha():
-    CodigoFecha = []
-    codigos_vistos = set()  
+    codigos_vistos = {}
     for val in pa.pago:
         if "2008" in val.get("fecha_pago"):
             Codigo_cliente = val.get("codigo_cliente")
     if ("codigo_cliente ")not in codigos_vistos:
-        CodigoFecha.append(
+        codigos_vistos.append(
             {
             "codigo_cliente": ("codigo_cliente"),
             "fecha": val.get("fecha_pago"),
@@ -17,7 +21,7 @@ def getAllCodigoClienteFecha():
             }
         )
         codigos_vistos.add("codigo_cliente")
-    return CodigoFecha
+    return codigos_vistos
 
 # Devuelve un listado con todos los pagos q se realizaron en en el año 2008 mediante paypal, ordena el resultado de mayor a menor
 def getAllPagosFecha():
@@ -33,16 +37,20 @@ def getAllPagosFecha():
     pagosFecha = sorted(pagosFecha, key=lambda x: x ["total"], reverse=True)
     return pagosFecha
 
-# Devuelve un listadocon todas las formas de pago q aparecen en la tabla pago. Tenga en cuenta q no deben aparecer formas de pago repetidas
-def getAllFormasDePago():
+# Devuelve un listado con todas las formas de pago q aparecen en la tabla pago. Tenga en cuenta q no deben aparecer formas de pago repetidas
 
-    tipoPago = set()
+def getAllFormasDePago():
+    formasDePago = set()
+    detallesDePago = []
     for val in pa.pago:
         formaPago = val.get("forma_pago")
-        if formaPago not in tipoPago:
-            tipoPago.add(formaPago)
-    return tipoPago
+        if formaPago not in formasDePago:
+            formasDePago.add(formaPago)
+            detallesDePago.append({
+                "pago": val.get('forma_pago')
+            })
 
+    return detallesDePago
 
 def menu():
     print("""
@@ -55,10 +63,21 @@ def menu():
 
                                                                                             
 
-                            1. 
-                            2. 
-                            3. 
-                            4.
-                            5. 
-
+                            1. Codigo de clientes que realizaron pagos en 2008, sin repetir.
+          
+                            2. Pagos realizados en 2008 por PayPal, de mayor a menor. 
+          
+                            3. Todas las formas de pago sin repetir.
+                            
     """)
+     
+    opcion = int(input("Seleccione una opcion: "))
+    if(opcion == 1):
+        print(tabulate(getAllCodigoClienteFecha(), headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 2):
+        print(tabulate(getAllPagosFecha(), headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 3):
+        print(tabulate(getAllFormasDePago(), headers="keys", tablefmt='rounded_grid'))
+
+
+    #corregir los 3 :/

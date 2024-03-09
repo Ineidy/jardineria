@@ -4,7 +4,7 @@ import storage.pedido as pedi
 from datetime import datetime
 from tabulate import tabulate
 
-
+#ver el codigo de cada pedido y su estado
 def getAllCodigoEstado():
     codigoEstado = []
     for val in pedi.pedido:
@@ -17,8 +17,8 @@ def getAllCodigoEstado():
     return codigoEstado
 
 
-#listado de de codigo pedido, codigo cliente fecha esperadsa y 
-#de entrega de pedids que no han sido entregados a tiempo
+#listado de de codigo pedido, codigo cliente fecha esperada y 
+#de entrega de pedidos que no han sido entregados a tiempo
 
 
 def getAllPedidosAtrasadosDeTiempo():
@@ -26,12 +26,13 @@ def getAllPedidosAtrasadosDeTiempo():
     for val in pedi.pedido:
         if (val.get('estado') == 'Entregado') and val.get('fecha_entrega') is None:
             val['fecha_entrega'] = val.get('fecha_esperada')
+
         if val.get('estado') == 'Entregado':
             date_1 = '/'.join(val.get('fecha_entrega').split('-')[::-1])
             date_2 = '/'.join(val.get('fecha_esperada').split('-')[::-1])
             start = datetime.strptime(date_1, '%d/%m/%Y')
             end = datetime.strptime(date_2, '%d/%m/%Y')
-            diff = end.date() - start.datgetAllPedidosAtrasadosDeTiempoe()
+            diff = end.date() - start.getAllPedidosAtrasadosDeTiempo()
             if diff.days < 0:
                 PedidosAceptados.append({
                     'codigo_pedido': val.get('codigo_pedido'),
@@ -43,15 +44,15 @@ def getAllPedidosAtrasadosDeTiempo():
 
     return PedidosAceptados
 
-
-def getAllCodigosFechaEsoperaEntregaMenosDosDias():
+#Pedidos con fecha de espera de menos de dos dias
+def getAllCodigosFechaEsperaEntregaMenosDosDias():
     PedidosAceptados = []
     for val in pedi.pedido:
         if (val.get('estado') == 'Entregado') and val.get('fecha_entrega') is None:
             val['fecha_entrega'] = val.get('fecha_esperada')
         if val.get('estado') == 'Entregado':
-            date_1 = '/'.join(val.get('fecha_esperada').split('-')[::-1])
-            date_2 = '/'.join(val.get('fecha_entrega').split('-')[::-1])
+            date_1 = '/'.join(val.get('fecha_entrega').split('-')[::-1])
+            date_2 = '/'.join(val.get('fecha_esperada').split('-')[::-1])
             start = datetime.strptime(date_1, '%d/%m/%Y')
             end = datetime.strptime(date_2, '%d/%m/%Y')
             diff = end.date() - start.date()
@@ -106,13 +107,33 @@ def menu():
 /_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /_/  /___/____/___/____/\____/___/  
                                                                                         
                             
-                            1.
-                            2.
-                            3.
-                            4.
-                            5. 
+                            1. Codigo y estado de cada pedido.
+          
+                            2. Informacion de pedidos que no han sido entregados a tiempo.
+          
+                            3. Pedidos con fecha de espera de menos de dos dias.
+          
+                            4. Pedidos rechazados en 2009.
+          
+                            5. Pedidos entregados en enero de cualquier año.
+          
 
 
 
 """)
+    
+    opcion = int(input("Selecciones una opcion: "))
+    if (opcion == 1):
+        print(tabulate(getAllCodigoEstado(), headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 2):
+        print(tabulate(getAllPedidosAtrasadosDeTiempo(), headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 3):
+        print(tabulate(getAllCodigosFechaEsperaEntregaMenosDosDias(), headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 4):
+        print(tabulate(getAllPedidosRechazados(),headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 5):
+        print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt='rounded_grid'))
 
+
+
+        #corregir 2 y 3

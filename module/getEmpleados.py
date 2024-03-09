@@ -3,11 +3,11 @@
 import storage.empleado as empleado
 from tabulate import tabulate
 
-
-def getAllNombreApellidoEmailJefe(codigo):
+# empleados con jefe de codigo 7 
+def getAllNombreApellidoEmailJefeNum7():
     nombreApellidoEmail =[]
     for val in empleado.empleados:
-        if (val.get("codigo_jefe") == codigo):
+        if (val.get("codigo_jefe") == 7):
             nombreApellidoEmail.append(
                 {
                     "nombre": val.get("nombre"),
@@ -18,7 +18,8 @@ def getAllNombreApellidoEmailJefe(codigo):
             )
     return nombreApellidoEmail
 
-def getAllNombreApellidoPuesto(codigo):
+#info de los que no son representantes de ventas.
+def getAllNombreApellidoPuesto():
     nombreApellidoPuesto =[]
     for val in empleado.empleados:
         if (val.get("puesto") != ("Representante Ventas")):
@@ -61,15 +62,21 @@ def menu():
 /_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /___/_/  /_/_/  /____/___/_/ |_/____/\____/___/  
                                                                                                      
 
-                            1.
-                            2.
-                            3.
-                            4.
-                            5.
-
+                            1. Informacion de empleados que su jefe tiene codigo 7.
+          
+                            2. Informacion de empleados que no son representantes de ventas.
+          
+                            3. Informacion del jefe de la empresa.
+          
+                     
     """)
-
-
+    opcion = int(input("Seleccione una de las opciones: "))
+    if(opcion == 1):
+        print(tabulate(getAllNombreApellidoEmailJefeNum7(), headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 2):
+        print(tabulate(getAllNombreApellidoPuesto(), headers="keys", tablefmt='rounded_grid'))
+    elif(opcion == 3):
+        print(tabulate(getAllNombreApellidoEmailJefe(), headers="keys", tablefmt='rounded_grid'))
 
 
  
