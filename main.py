@@ -1,5 +1,6 @@
 from tabulate import tabulate
 
+import module.getProductos as produ
 import module.getClients as cli
 import module.getOficina as of
 import module.getEmpleados as empleado
@@ -21,6 +22,7 @@ if (__name__ == '__main__'):
                             3. empleados
                             4. pedidos 
                             5. pagos
+                            6. productos
 """)
     
     opcion = int(input("\n Seleccione una de las opciones: "))
@@ -34,3 +36,5 @@ if (__name__ == '__main__'):
         pedi.menu()
     elif(opcion == 5):
         pa.menu()
+    elif(opcion == 6):
+        produ.menu()
