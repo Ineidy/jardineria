@@ -1,4 +1,4 @@
-pedido = [
+pedidos = [
     {
         "codigo_pedido": 1,
         "fecha_pedido": "2006-01-17",

@@ -1,20 +1,24 @@
-import storage.producto as produ
 from tabulate import tabulate
+import module.postProduct as postProduct
+import requests
 
 
+
+def getAllData():
+    peticion= requests.get("http://172.16.100.115:5007")
+    data = peticion.json()
+    return data
 
 def getAllStocksPriceGama(gama, stock): 
     condicion = []
-    for val in produ.producto:
-        if(val.get("gama")== gama and val.get("cantidad_en_stock") >= stock):
+    for val in getAllData():
+        if(val.get("gama") == gama and val.get("cantidad_en_stock") >= stock):
             condicion.append(val)
 
     def price(val):
         return val.get("precio_ventas")
-    condicion.sort(key=price)
+    condicion.sort(key=price, reverse=True)
     for i, val in enumerate(condicion):
-        if (condicion[i].get("descripcion")):
-            condicion[i]["descripcion"] = f'{val.get("descripcion")[:5]}...'
         condicion[i] = {
                 "codigo": val.get("codigo_producto"),
                 "venta": val.get("precio_venta"),
@@ -40,6 +44,9 @@ def menu():
 
               
                             1. obtener todos los productos de una categoria ordenando sus precios de venta, tambien de su cantidad de inventario sea superior (ejem: Ornamentales, )
+                            
+                            2. guardar info
+                            
                             0. Salir
 
 
@@ -51,5 +58,20 @@ def menu():
             gama = input("Seleccione la gama que desea filtrar: ")
             stock = input("ingresa la cantidad que deseas mostrar: ")
             print(tabulate(getAllStocksPriceGama(gama, stock), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 2):
+            producto = {
+            "codigo_producto": input("Ingrese El Codigo Del Producto: "),
+            "nombre": input("Ingrese El Nombre Del Producto: "),
+            "gama": input("Ingrese La Gama Del Producto: "),
+            "dimensiones": input("Ingrese La Dimension Del Producto: "),
+            "proveedor": input("Ingrese El proveedor Del Producto: "),
+            "descripcion": input("Ingrese La Descripcion Del Producto: "),
+            "cantidad_en_stock": int(input("Ingrese La Cantidad Del Producto: ")),
+            "precio_venta": int(input("Ingrese El Precio De Venta Del Producto: ")),
+            "precio_proveedor": int(input("Ingrese El Precion De Proveedor Del Producto: "))
+            }
+
+            postProduct.postProduct(producto)
+            print("PRODUCTO GUARDADO CON EXITO!!")
         elif(opcion == 0):
             break
