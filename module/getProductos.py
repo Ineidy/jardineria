@@ -56,7 +56,7 @@ def menu():
         opcion = int(input("Selecciona una opcion: "))
         if(opcion==1):
             gama = input("Seleccione la gama que desea filtrar: ")
-            stock = input("ingresa la cantidad que deseas mostrar: ")
+            stock = int(input("ingresa la cantidad que deseas mostrar: "))
             print(tabulate(getAllStocksPriceGama(gama, stock), headers="keys", tablefmt='rounded_grid'))
         elif(opcion == 2):
             producto = {
