@@ -95,15 +95,15 @@ def getAllClientsMadridRepVentas30o11():
 def getAllClientesReprVentas():
     clientsReprVentas = []
     for val in cli.clientes:
-        for i in empleado.empleado:
+        for i in empleado.empleados:
             if val.get("codigo_empleado_rep_ventas") == i.get("codigo_empleado"):
                 clientsReprVentas.append(
                     {
                      "Nombre":val.get('nombre_cliente'),
-                     "Apellidos": F'{val.get("apellido1")}{val.get("apellido2")}'
+                     "Apellidos": f'{i.get("apellido1")}{i.get("apellido2")}'
                     }
                 )
-        return clientsReprVentas
+    return clientsReprVentas
 
         
         
@@ -134,7 +134,7 @@ def menu():
 
             6. obtener listado con todos los clientes que sean de la ciudad de Madrid y cuyo representante de ventas tenga el codigo de empleado 11 o 30.
               
-            7. obtener cada cielte con su representante de ventas
+            7. obtener cada cliente con su representante de ventas
               
             0. Salir
 

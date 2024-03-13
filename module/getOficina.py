@@ -42,28 +42,34 @@ def getAllInfoPais(pais):
                 
 
 def menu():
-    print("""
- 
-   ___  _______  ____  ___  ______________  ___  ____  ____  __________________  _____   ____
-  / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / __ \/ __/  _/ ___/  _/ |/ / _ | / __/
- / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / /_/ / _/_/ // /___/ //    / __ |_\ \  
-/_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/  \____/_/ /___/\___/___/_/|_/_/ |_/___/  
-                                                                                             
+    while True:
 
-                            
-                            1. Obtener los codigos de oficina y ciudad.
-          
-                            2. Obtener oficinas de España.
-          
-                            3. Obtener oficinas de cualquier pais.
+        print("""
+    
+       ___  _______  ____  ___  ______________  ___  ____  ____  __________________  _____   ____
+      / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / __ \/ __/  _/ ___/  _/ |/ / _ | / __/
+     / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / /_/ / _/_/ // /___/ //    / __ |_\ \  
+    /_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/  \____/_/ /___/\___/___/_/|_/_/ |_/___/  
+                                                                                                
+
+                                
+                                1. Obtener los codigos de oficina y ciudad.
+            
+                                2. Obtener oficinas de España.
+            
+                                3. Obtener oficinas de cualquier pais.
+              
+                                0. Salir
 
 
-    """)
-    opcion = int(input("Seleccione una opcion: "))
-    if(opcion == 1):
-        print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt= 'rounded_grid'))
-    elif(opcion == 2):
-        print(tabulate(getAllCiudadTelefono(), headers="keys", tablefmt='rounded_grid'))
-    elif(opcion == 3):
-        pais = input("Ingrese de que pais quiere buscar la oficina: ")
-        print(tabulate(getAllInfoPais(pais), headers="keys", tablefmt='rounded_grid'))
+        """)
+        opcion = int(input("Seleccione una opcion: "))
+        if(opcion == 1):
+            print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt= 'rounded_grid'))
+        elif(opcion == 2):
+            print(tabulate(getAllCiudadTelefono(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 3):
+            pais = input("Ingrese de que pais quiere buscar la oficina: ")
+            print(tabulate(getAllInfoPais(pais), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 0):
+            break

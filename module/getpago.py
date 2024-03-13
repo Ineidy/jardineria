@@ -1,4 +1,6 @@
-import module.getpago as pa
+import storage.pago as pa
+import storage.cliente as cli
+import storage.empleado as empleado
 from tabulate import tabulate
 
 #Devuelve un listado con el codigo de cliente de aquellos 
@@ -34,7 +36,7 @@ def getAllPagosFecha():
                     "forma_pago": val.get("forma_pago"),
                     "total": val.get("total")
                 })
-    pagosFecha = sorted(pagosFecha, key=lambda x: x ["total"], reverse=True)
+    pagosFecha = sorted(pagosFecha, key=lambda x: x ["total"])
     return pagosFecha
 
 # Devuelve un listado con todas las formas de pago q aparecen en la tabla pago. Tenga en cuenta q no deben aparecer formas de pago repetidas
@@ -52,32 +54,88 @@ def getAllFormasDePago():
 
     return detallesDePago
 
+#Muestre el nombre de los clientes que hayan realizado pagos y el nombre de su representante de ventas
+
+def getAllClientsPagosConReprVentas():
+    clientsPagosConReprventas = []
+    for val in pa.pago:
+        for i in cli.clientes:
+            for u in empleado.empleados:
+                if(
+                    i.get("codigo_cliente") == val.get("codigo_cliente")  and
+                    i.get("codigo_empleado_rep_ventas") == u.get("codigo_empleado")
+                ):
+                    clientsPagosConReprventas.append(
+                            {
+                                "Codigo_Del_Cliente": i.get ('codigo_cliente'),
+                                "Nombre": i.get ('nombre_cliente'),
+                                "Representante_Ventas": u.get('nombre')
+
+                            }
+                        )
+                
+    return clientsPagosConReprventas
+
+#Muestre el nombre de los clientes que NO hayan realizado pagos y el nombre de su representante de ventas
+def getAllNoPagosReprVentas():
+    noPagosRepVentas=[]
+    for val in pa.pago:
+        for i in cli.clientes:
+            for u in empleado.empleados:
+                if(
+                    i.get("codigo_cliente") is not val.get("codigo_cliente") and
+                    i.get("codigo_empleado_rep_ventas") == u.get("codigo_empleado")
+                ):
+                    noPagosRepVentas.append(
+                        {
+                            "Codigo_Del_Cliente": i.get ('codigo_cliente'),
+                            "Nombre": i.get ('nombre_cliente'),
+                            "Representante_Ventas": u.get('nombre')
+                        }
+                    )
+
+    return noPagosRepVentas
+
 def menu():
-    print("""
-           
-   ___  _______  ____  ___  ______________  ___  ____  ___  ___  _________  ____
-  / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / _ \/ _ |/ ___/ __ \/ __/
- / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / ___/ __ / (_ / /_/ /\ \  
-/_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /_/  /_/ |_\___/\____/___/  
-                                                                                
+    while True:
+        print("""
+            
+       ___  _______  ____  ___  ______________  ___  ____  ___  ___  _________  ____
+      / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / _ \/ _ |/ ___/ __ \/ __/
+     / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / ___/ __ / (_ / /_/ /\ \  
+    /_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /_/  /_/ |_\___/\____/___/  
+                                                                                    
 
-                                                                                            
+                                                                                                
 
-                            1. Codigo de clientes que realizaron pagos en 2008, sin repetir.
-          
-                            2. Pagos realizados en 2008 por PayPal, de mayor a menor. 
-          
-                            3. Todas las formas de pago sin repetir.
-                            
-    """)
-     
-    opcion = int(input("Seleccione una opcion: "))
-    if(opcion == 1):
-        print(tabulate(getAllCodigoClienteFecha(), headers="keys", tablefmt='rounded_grid'))
-    elif(opcion == 2):
-        print(tabulate(getAllPagosFecha(), headers="keys", tablefmt='rounded_grid'))
-    elif(opcion == 3):
-        print(tabulate(getAllFormasDePago(), headers="keys", tablefmt='rounded_grid'))
+                                1. Codigo de clientes que realizaron pagos en 2008, sin repetir.
+            
+                                2. Pagos realizados en 2008 por PayPal, de mayor a menor. 
+            
+                                3. Todas las formas de pago sin repetir.
+            
+                                4. Nombre de los clientes que hayan realizado pagos y sus representantes de ventas.
+            
+                                5. Nombre de los clientes que NO hayan realizado pagos y sus representantes de ventas.
+                                
+                                0. Salir
+                                
+        """)
+        
+        opcion = int(input("Seleccione una opcion: "))
+        if(opcion == 1):
+            print(tabulate(getAllCodigoClienteFecha(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 2):
+            print(tabulate(getAllPagosFecha(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 3):
+            print(tabulate(getAllFormasDePago(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion==4):
+            print(tabulate(getAllClientsPagosConReprVentas(),headers="keys",tablefmt='rounded_grid'))
+        elif(opcion == 5):
+            print(tabulate(getAllNoPagosReprVentas(),headers="keys",tablefmt='rounded_grid'))
+        elif(opcion == 0):
+            break
 
 
-    #corregir los 3 :/
+
+        #corregir 1 

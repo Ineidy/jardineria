@@ -99,40 +99,45 @@ def getAllPedidosEntregadosEnero():
 
 
 def menu():
-    print("""
+    while True:
+        print("""
 
-   ___  _______  ____  ___  ______________  ___  ____  ___  _______  _______  ____  ____
-  / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / _ \/ __/ _ \/  _/ _ \/ __ \/ __/
- / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / ___/ _// // // // // / /_/ /\ \  
-/_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /_/  /___/____/___/____/\____/___/  
-                                                                                        
-                            
-                            1. Codigo y estado de cada pedido.
-          
-                            2. Informacion de pedidos que no han sido entregados a tiempo.
-          
-                            3. Pedidos con fecha de espera de menos de dos dias.
-          
-                            4. Pedidos rechazados en 2009.
-          
-                            5. Pedidos entregados en enero de cualquier año.
-          
+       ___  _______  ____  ___  ______________  ___  ____  ___  _______  _______  ____  ____
+      / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / _ \/ __/ _ \/  _/ _ \/ __ \/ __/
+     / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / ___/ _// // // // // / /_/ /\ \  
+    /_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /_/  /___/____/___/____/\____/___/  
+                                                                                            
+                                
+                                1. Codigo y estado de cada pedido.
+            
+                                2. Informacion de pedidos que no han sido entregados a tiempo.
+            
+                                3. Pedidos con fecha de espera de menos de dos dias.
+            
+                                4. Pedidos rechazados en 2009.
+            
+                                5. Pedidos entregados en enero de cualquier año.
+              
+                                0. Salir
+            
 
 
 
-""")
-    
-    opcion = int(input("Selecciones una opcion: "))
-    if (opcion == 1):
-        print(tabulate(getAllCodigoEstado(), headers="keys", tablefmt='rounded_grid'))
-    elif(opcion == 2):
-        print(tabulate(getAllPedidosAtrasadosDeTiempo(), headers="keys", tablefmt='rounded_grid'))
-    elif(opcion == 3):
-        print(tabulate(getAllCodigosFechaEsperaEntregaMenosDosDias(), headers="keys", tablefmt='rounded_grid'))
-    elif(opcion == 4):
-        print(tabulate(getAllPedidosRechazados(),headers="keys", tablefmt='rounded_grid'))
-    elif(opcion == 5):
-        print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt='rounded_grid'))
+    """)
+        
+        opcion = int(input("Selecciones una opcion: "))
+        if (opcion == 1):
+            print(tabulate(getAllCodigoEstado(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 2):
+            print(tabulate(getAllPedidosAtrasadosDeTiempo(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 3):
+            print(tabulate(getAllCodigosFechaEsperaEntregaMenosDosDias(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 4):
+            print(tabulate(getAllPedidosRechazados(),headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 5):
+            print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion == 0):
+            break
 
 
 
