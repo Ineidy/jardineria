@@ -9,3 +9,5 @@ def getAllDataoficina():
     peticionofi= requests.get("http://172.16.100.118:5004")
     dataofi = peticionofi.json()
     return dataofi
+
+#C

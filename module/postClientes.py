@@ -27,3 +27,5 @@ def postClientes():
         "codigo_empleado_rep_ventas": input("Ingrese el codigo del representante de ventas: "),
         "limite_credito": float(input("Ingrese el limite de credito:"))
         }
+        
+#DF

@@ -10,3 +10,6 @@ def getAllDataEmpleados():
     peticionEmple= requests.get("http://172.16.100.118:5002")
     dataEmple = peticionEmple.json()
     return dataEmple
+
+
+#D

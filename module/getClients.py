@@ -3,6 +3,7 @@ from tabulate import tabulate
 import os
 import requests
 
+
 def getAllDatacliente():
      # json-server storage/cliente.json -b 5001
     peticioncli= requests.get("http://172.16.100.118:5001")
@@ -102,7 +103,7 @@ def getAllClientsMadridRepVentas30o11():
 def getAllClientesReprVentas():
     clientsReprVentas = []
     for val in getAllDatacliente():
-        for i in empleado.empleados:
+        for i in getAllDataEmpleados():
             if val.get("codigo_empleado_rep_ventas") == i.get("codigo_empleado"):
                 clientsReprVentas.append(
                     {
@@ -180,3 +181,5 @@ def menu():
 
         elif(opcion==0):
             break
+        
+#D

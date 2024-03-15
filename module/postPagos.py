@@ -9,3 +9,5 @@ def getAllDataPago():
     peticionpago= requests.get("http://172.16.100.118:5005")
     datapago = peticionpago.json()
     return datapago
+
+#D

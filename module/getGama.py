@@ -15,3 +15,5 @@ def getAllNombre():
     for val in getAllGama():
         gamanombre.append(val.get("gama"))
     return gamanombre
+
+#D

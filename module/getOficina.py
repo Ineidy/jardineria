@@ -88,3 +88,6 @@ def menu():
             print(tabulate(getAllInfoPais(pais), headers="keys", tablefmt='rounded_grid'))
         elif(opcion == 0):
             break
+        
+        
+#D

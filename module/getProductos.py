@@ -4,7 +4,7 @@ import requests
 import module.getProductos as gP
 
 def getProductCodigo(codigo):
-    for val in getAllData():
+    for val in getAllDataProductos():
         if(val.get('codigo_producto') == codigo):
             return [val]
 
@@ -40,6 +40,8 @@ def getAllStocksPriceGama(gama, stock):
             }
     return condicion
 
+
+
 def menu():
     while True:
         os.system("clear")
@@ -72,3 +74,6 @@ def menu():
             print(tabulate(getAllStocksPriceGama(gama, stock), headers="keys", tablefmt="github"))
         elif(opcion == 0):
             break
+        
+        
+#D

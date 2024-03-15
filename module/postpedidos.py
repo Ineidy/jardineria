@@ -10,3 +10,5 @@ def getAllDataPedidos():
     peticionpedidos= requests.get("http://172.16.100.118:5006")
     datapedidos = peticionpedidos.json()
     return datapedidos
+
+#D

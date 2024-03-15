@@ -68,7 +68,7 @@ def getAllClientsPagosConReprVentas():
     clientsPagosConReprventas = []
     for val in getAllDataPago():
         for i in getAllDatacliente():
-            for u in empleado.empleados:
+            for u in getAllDataEmpleados():
                 if(
                     i.get("codigo_cliente") == val.get("codigo_cliente")  and
                     i.get("codigo_empleado_rep_ventas") == u.get("codigo_empleado")
@@ -150,4 +150,4 @@ def menu():
 
 
 
-        #corregir 1 
+        #mal 1 
