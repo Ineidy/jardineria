@@ -1,19 +1,25 @@
 from tabulate import tabulate
 import os
 import requests
+import module.getProductos as gP
+
+def getProductCodigo(codigo):
+    for val in getAllData():
+        if(val.get('codigo_producto') == codigo):
+            return [val]
 
 # Devuelve un listado con todos los productos que pertenecen a la gama Ornamentales 
 # y que tienen más de 100 unidades en stock. El listado deberá estar ordenado por su precio de venta, 
 # mostrando en primer lugar los de mayor precio.
-def getAllData():
-     # json-server storage/producto.json -b 5501
-    peticion= requests.get("http://172.16.100.118:5001")
-    data = peticion.json()
-    return data
+def getAllDataProductos():
+     # json-server storage/producto.json -b 5007
+    peticionproductos= requests.get("http://172.16.100.118:5007")
+    datapeticiones = peticionproductos.json()
+    return datapeticiones
 
 def getAllStocksPriceGama(gama, stock): 
     condicion = []
-    for val in getAllData():
+    for val in getAllDataProductos():
         if(val.get("gama") == gama and val.get("cantidad_en_stock") >= stock):
             condicion.append(val)
 

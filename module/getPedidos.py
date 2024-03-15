@@ -4,15 +4,18 @@ import os
 import requests
 from tabulate import tabulate
 
-def getAllData():
-    peticiones = requests.get("")
-    data = peticiones.json()
-    return data
+def getAllDataPedidos():
+     # json-server storage/pedido.json -b 5006
+    peticionpedidos= requests.get("http://172.16.100.118:5006")
+    datapedidos = peticionpedidos.json()
+    return datapedidos
+
+
 
 #ver el codigo de cada pedido y su estado
 def getAllCodigoEstado():
     codigoEstado = []
-    for val in getAllData():
+    for val in getAllDataPedidos():
         codigoEstado.append(
             {
                 "codigo": val.get ('codigo_pedido'),
@@ -28,7 +31,7 @@ def getAllCodigoEstado():
 
 def getAllPedidosAtrasadosDeTiempo():
     PedidosAceptados = []
-    for val in getAllData():
+    for val in getAllDataPedidos():
         if (val.get('estado') == 'Entregado') and val.get('fecha_entrega') is None:
             val['fecha_entrega'] = val.get('fecha_esperada')
 
@@ -52,7 +55,7 @@ def getAllPedidosAtrasadosDeTiempo():
 #Pedidos con fecha de espera de menos de dos dias
 def getAllCodigosFechaEsperaEntregaMenosDosDias():
     PedidosAceptados = []
-    for val in getAllData():
+    for val in getAllDataPedidos():
         if (val.get('estado') == 'Entregado') and val.get('fecha_entrega') is None:
             val['fecha_entrega'] = val.get('fecha_esperada')
         if val.get('estado') == 'Entregado':
@@ -76,7 +79,7 @@ def getAllCodigosFechaEsperaEntregaMenosDosDias():
 
 def getAllPedidosRechazados():
     pedidosRechazados = []
-    for val in getAllData():
+    for val in getAllDataPedidos():
         if("2009") in val.get("fecha_pedido") and val.get("estado") is ("Rechazado"):
             pedidosRechazados.append({
                     "codigo_pedido": val.get("codigo_pedido"),
@@ -88,7 +91,7 @@ def getAllPedidosRechazados():
 # Devuelve un listado de todos los pedidos q han sido entregados en el mes de enero de cualquier año
 def getAllPedidosEntregadosEnero():
     pedidosEntregadosMes = []
-    for val in getAllData():
+    for val in getAllDataPedidos():
         fecha_entrega = val.get("fecha_entrega")
         if fecha_entrega:
             date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])

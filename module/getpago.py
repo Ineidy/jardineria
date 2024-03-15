@@ -1,7 +1,15 @@
-import storage.pago as pa
-import storage.cliente as cli
-import storage.empleado as empleado
+
 from tabulate import tabulate
+import os
+import requests
+
+
+def getAllDataPago():
+     # json-server storage/pago.json -b 5005
+    peticionpago= requests.get("http://172.16.100.118:5005")
+    datapago = peticionpago.json()
+    return datapago
+
 
 #Devuelve un listado con el codigo de cliente de aquellos 
 #clientes q realizaron algun pago en 2008. 
@@ -44,7 +52,7 @@ from tabulate import tabulate
 def getAllFormasDePago():
     formasDePago = set()
     detallesDePago = []
-    for val in pa.pago:
+    for val in getAllDataPago():
         formaPago = val.get("forma_pago")
         if formaPago not in formasDePago:
             formasDePago.add(formaPago)
@@ -58,8 +66,8 @@ def getAllFormasDePago():
 
 def getAllClientsPagosConReprVentas():
     clientsPagosConReprventas = []
-    for val in pa.pago:
-        for i in cli.clientes:
+    for val in getAllDataPago():
+        for i in getAllDatacliente():
             for u in empleado.empleados:
                 if(
                     i.get("codigo_cliente") == val.get("codigo_cliente")  and
@@ -79,8 +87,8 @@ def getAllClientsPagosConReprVentas():
 #Muestre el nombre de los clientes que NO hayan realizado pagos y el nombre de su representante de ventas
 def getAllNoPagosReprVentas():
     noPagosRepVentas=[]
-    for val in pa.pago:
-        for i in cli.clientes:
+    for val in getAllDataPago():
+        for i in getAllDatacliente():
             for u in empleado.empleados:
                 if(
                     i.get("codigo_cliente") is not val.get("codigo_cliente") and

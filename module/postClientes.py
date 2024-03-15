@@ -3,6 +3,13 @@ from tabulate import tabulate
 import requests
 import os
 
+def getAllDatacliente():
+     # json-server storage/cliente.json -b 5001
+    peticioncli= requests.get("http://172.16.100.118:5001")
+    datacli = peticioncli.json()
+    return datacli
+
+
 def postClientes():
         producto = {
         "codigo_cliente": int(input("Ingrese El codigo del cliente: ")),
