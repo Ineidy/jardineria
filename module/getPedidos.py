@@ -1,13 +1,18 @@
 #listado de los distintos estados
-
-import storage.pedido as pedi
 from datetime import datetime
+import os
+import requests
 from tabulate import tabulate
+
+def getAllData():
+    peticiones = requests.get("")
+    data = peticiones.json()
+    return data
 
 #ver el codigo de cada pedido y su estado
 def getAllCodigoEstado():
     codigoEstado = []
-    for val in pedi.pedido:
+    for val in getAllData():
         codigoEstado.append(
             {
                 "codigo": val.get ('codigo_pedido'),
@@ -23,7 +28,7 @@ def getAllCodigoEstado():
 
 def getAllPedidosAtrasadosDeTiempo():
     PedidosAceptados = []
-    for val in pedi.pedido:
+    for val in getAllData():
         if (val.get('estado') == 'Entregado') and val.get('fecha_entrega') is None:
             val['fecha_entrega'] = val.get('fecha_esperada')
 
@@ -32,7 +37,7 @@ def getAllPedidosAtrasadosDeTiempo():
             date_2 = '/'.join(val.get('fecha_esperada').split('-')[::-1])
             start = datetime.strptime(date_1, '%d/%m/%Y')
             end = datetime.strptime(date_2, '%d/%m/%Y')
-            diff = end.date() - start.getAllPedidosAtrasadosDeTiempo()
+            diff = end.date() - start.date()
             if diff.days < 0:
                 PedidosAceptados.append({
                     'codigo_pedido': val.get('codigo_pedido'),
@@ -47,7 +52,7 @@ def getAllPedidosAtrasadosDeTiempo():
 #Pedidos con fecha de espera de menos de dos dias
 def getAllCodigosFechaEsperaEntregaMenosDosDias():
     PedidosAceptados = []
-    for val in pedi.pedido:
+    for val in getAllData():
         if (val.get('estado') == 'Entregado') and val.get('fecha_entrega') is None:
             val['fecha_entrega'] = val.get('fecha_esperada')
         if val.get('estado') == 'Entregado':
@@ -71,7 +76,7 @@ def getAllCodigosFechaEsperaEntregaMenosDosDias():
 
 def getAllPedidosRechazados():
     pedidosRechazados = []
-    for val in pedi.pedido:
+    for val in getAllData():
         if("2009") in val.get("fecha_pedido") and val.get("estado") is ("Rechazado"):
             pedidosRechazados.append({
                     "codigo_pedido": val.get("codigo_pedido"),
@@ -83,7 +88,7 @@ def getAllPedidosRechazados():
 # Devuelve un listado de todos los pedidos q han sido entregados en el mes de enero de cualquier año
 def getAllPedidosEntregadosEnero():
     pedidosEntregadosMes = []
-    for val in pedi.pedido:
+    for val in getAllData():
         fecha_entrega = val.get("fecha_entrega")
         if fecha_entrega:
             date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
@@ -102,10 +107,15 @@ def menu():
     while True:
         print("""
 
-       ___  _______  ____  ___  ______________  ___  ____  ___  _______  _______  ____  ____
-      / _ \/ __/ _ \/ __ \/ _ \/_  __/ __/ __/ / _ \/ __/ / _ \/ __/ _ \/  _/ _ \/ __ \/ __/
-     / , _/ _// ___/ /_/ / , _/ / / / _/_\ \  / // / _/  / ___/ _// // // // // / /_/ /\ \  
-    /_/|_/___/_/   \____/_/|_| /_/ /___/___/ /____/___/ /_/  /___/____/___/____/\____/___/  
+                                        ======================================
+
+                                                REPORTES DE PEDIDOS
+                    
+                                        ======================================
+              
+
+
+
                                                                                             
                                 
                                 1. Codigo y estado de cada pedido.

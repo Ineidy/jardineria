@@ -38,26 +38,31 @@ def menu():
     while True:
         os.system("clear")
         print("""
-    ____                        __          ____          ____                 __           __            
-   / __ \___  ____  ____  _____/ /____     / __ \___     / __ \_________  ____/ /_  _______/ /_____  _____
-  / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \   / / / / _ \   / /_/ / ___/ __ \/ __  / / / / ___/ __/ __ \/ ___/
- / _, _/  __/ /_/ / /_/ / /  / /_/  __/  / /_/ /  __/  / ____/ /  / /_/ / /_/ / /_/ / /__/ /_/ /_/ (__  ) 
-/_/ |_|\___/ .___/\____/_/   \__/\___/  /_____/\___/  /_/   /_/   \____/\__,_/\__,_/\___/\__/\____/____/  
-          /_/                                                                                             
+
+                                        ======================================
+
+                                                REPORTES DE PRODUCTOS
+                    
+                                        ======================================    
+              
+
+
+
+
 
               
-                            1. obtener todos los productos de una categoria ordenando sus precios de venta, tambien de su cantidad de inventario sea superior (ejem: Ornamentales, )
+                            1. obtener todos los productos de una categoria ordenando sus precios de venta, tambien de su cantidad de inventario 
+                            sea superior (ejem: Ornamentales, )
         
                             0. Salir
 
-
-""")
+        """)
         
 
         opcion = int(input("Selecciona una opcion: "))
         if(opcion==1):
-            gama = input("Seleccione la gama que desea filtrar: ")
-            stock = int(input("ingresa la cantidad que deseas mostrar: "))
-            print(tabulate(getAllStocksPriceGama(gama, stock), headers="keys", tablefmt='rounded_grid'))
+            gama = input("Ingrese la gama que deseas flictrar: ")
+            stock = int(input("Ingrese las unidades que seas mostrar: "))
+            print(tabulate(getAllStocksPriceGama(gama, stock), headers="keys", tablefmt="github"))
         elif(opcion == 0):
             break
