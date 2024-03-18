@@ -1,7 +1,6 @@
 import os
 import requests
 from tabulate import tabulate
-
 import module.getEmpleados as reportesempleados
 
 

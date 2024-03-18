@@ -2,6 +2,7 @@ import os
 import module.getClients as reportesclientes
 import module.getOficina as reportesoficinas
 import module.getpago as reportespagos
+
 import module.getEmpleados as reportesempleados
 import module.getPedidos as reportespedidos
 import module.getProductos as reportesproductos
@@ -197,7 +198,7 @@ def menuproductos():
 if (__name__ == '__main__'):
     # https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Slant&t=Menu%20Principal
     while True:
-        os.system("clear")
+        #os.system("clear")
         print("""
               
                                         ======================================
@@ -221,18 +222,35 @@ if (__name__ == '__main__'):
                                 0. salir
     """)
         
-        opcion = int(input("\n Seleccione una de las opciones: "))
-        if(opcion == 1):
-            menuclientes()
-        elif(opcion == 2):
-            menuoficinas()
-        elif(opcion == 3):
-            menuempleados()
-        elif(opcion == 4):
-            menupedidos()
-        elif(opcion == 5):
-            menupago()
-        elif(opcion == 6):
-            menuproductos()
-        elif(opcion==0):
-            break
+
+        try:
+            opcion = int(input("\n Seleccione una de las opciones: "))
+
+        except ValueError as error: 
+            print(dir(error))
+
+
+
+
+
+
+
+
+
+
+
+
+        # if(opcion == 1):
+        #     menuclientes()
+        # elif(opcion == 2):
+        #     menuoficinas()
+        # elif(opcion == 3):
+        #     menuempleados()
+        # elif(opcion == 4):
+        #     menupedidos()
+        # elif(opcion == 5):
+        #     menupago()
+        # elif(opcion == 6):
+        #     menuproductos()
+        # elif(opcion==0):
+        #     break
