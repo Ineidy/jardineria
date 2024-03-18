@@ -1,4 +1,3 @@
-
 [
     {
         "codigo_producto": "11679",
@@ -2832,5 +2831,65 @@
         "precio_venta": 4,
         "precio_proveedor": 2,
         "id": 277
+    },
+    {
+        "codigo_producto": "JS93",
+        "nombre": "jhas",
+        "gama": "hjak",
+        "dimensiones": "82x42",
+        "proveedor": "jas",
+        "descripcion": "ksaj",
+        "cantidad_en_stock": 23,
+        "precio_venta": 13,
+        "precio_proveedor": 1,
+        "id": 278
+    },
+    {
+        "codigo_producto": "SJ34",
+        "nombre": "kjs",
+        "gama": "Ornamentales",
+        "dimensiones": "82x24",
+        "proveedor": "yo",
+        "descripcion": "yoyo",
+        "cantidad_en_stock": 34,
+        "precio_venta": 12,
+        "precio_proveedor": 11,
+        "id": 279
+    },
+    {
+        "codigo_producto": "jhasd",
+        "nombre": "lljan",
+        "gama": "jad",
+        "dimensiones": "kjdha",
+        "proveedor": "ajhsd",
+        "descripcion": "jshda",
+        "cantidad_en_stock": 23,
+        "precio_venta": 12,
+        "precio_proveedor": 11,
+        "id": 280
+    },
+    {
+        "codigo_producto": "has",
+        "nombre": "kshad",
+        "gama": "asd",
+        "dimensiones": "dhs{",
+        "proveedor": "jahs",
+        "descripcion": "kjsd",
+        "cantidad_en_stock": 3632,
+        "precio_venta": 12,
+        "precio_proveedor": 11,
+        "id": 281
+    },
+    {
+        "codigo_producto": "ais",
+        "nombre": "ajsh",
+        "gama": "jahs",
+        "dimensiones": "ajsh",
+        "proveedor": "aksjh",
+        "descripcion": "akshj",
+        "cantidad_en_stock": 262,
+        "precio_venta": 12,
+        "precio_proveedor": 11,
+        "id": 282
     }
 ]

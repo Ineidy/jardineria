@@ -1,16 +1,29 @@
-import json
-from tabulate import tabulate
-import requests
-import re
 import os
-import module.getGama as gG
-import module.getProductos as gP
+from tabulate import tabulate
+import json
+import requests
 
-def getAllDataProductos():
-     # json-server storage/producto.json -b 5007
-    peticionproductos= requests.get("http://172.16.100.118:5007")
-    datapeticiones = peticionproductos.json()
-    return datapeticiones
+
+def postProducto():
+    # json-server storage/producto.json -b 5007
+    producto = {
+        "codigo_producto": input("Ingrese el codigo del producto: "),
+        "nombre": input("Ingrese el nombre del producto: "),
+        "gama": input("Ingresa la gama: "),
+        #gG.getAllNombre()[int(input("Selecione la gama:\n"+"".join([f"\t{i}. {val}\n" for i, val in enumerate(gG.getAllNombre())])))],
+        "dimensiones": input("Ingrse la dimensiones del producto: "),
+        "proveedor": input("Ingrse el proveedor del producto: "),
+        "descripcion": input("Ingrse el descripcion del producto: "),
+        "cantidad_en_stock": int(input("Ingrse el cantidad en stock: ")),
+        "precio_venta": int(input("Ingrse el precio de ventas: ")),
+        "precio_proveedor": int(input("Ingrse el precio del proveedor: "))
+    }
+    
+    peticion = requests.post("http://192.168.10.159:5007", data=json.dumps(producto))
+    res = peticion.json()
+    res["Mensaje"] = "Producto Guardado"
+    return [res]
+
 
 
 # def postProduct():
@@ -41,26 +54,6 @@ def getAllDataProductos():
                 
 #         except Exception as error:
 #             print(error)
-def postProducto():
-    producto = {                    
-
-            "codigo_producto": input("Ingrese El Codigo Del Producto: "),
-            "nombre": input("Ingrese El Nombre Del Producto: "),
-            "gama": gG.getAllNombre()[int(input("Selecione la gama:\n"+"".join([f"\t{i}. {val}\n" for i, val in enumerate(gG.getAllNombre())])))],
-            "dimensiones": input("Ingrese La Dimension Del Producto: "),
-            "proveedor": input("Ingrese El proveedor Del Producto: "),
-            "descripcion": input("Ingrese La Descripcion Del Producto: "),
-            "cantidad_en_stock": int(input("Ingrese La Cantidad Del Producto: ")),
-            "precio_venta": int(input("Ingrese El Precio De Venta Del Producto: ")),
-            "precio_proveedor": int(input("Ingrese El Precion De Proveedor Del Producto: "))
-            }
-    #headers ={'content_type': 'application/json', 'charset': 'UTF-8'}
-    peticion = requests.post("http://172.16.100.118:5001", data=json.dumps(producto))
-    res = peticion.json()
-    res["Mensaje"] = "producto guardado"
-    return [res]
-
-
 
 
 def menu():
@@ -101,7 +94,7 @@ def menu():
        
        
         if(opcion==1):
-                print(tabulate(postProduct(), headers="Keys", tablefmt='rounded_grid'))
+                print(tabulate(postProducto(), headers="Keys", tablefmt='rounded_grid'))
                 input("Precione una tecla para continuar.....")
         elif(opcion == 0):
             break

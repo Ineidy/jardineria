@@ -1,11 +1,11 @@
-
+import requests
 from tabulate import tabulate
 import os
-import requests
+
 
 def getAllDataoficina():
      # json-server storage/oficina.json -b 5004
-    peticionofi= requests.get("http://172.16.100.118:5004")
+    peticionofi= requests.get("http://192.168.10.159:5004")
     dataofi = peticionofi.json()
     return dataofi
 
@@ -52,7 +52,7 @@ def getAllInfoPais(pais):
 
 def menu():
     while True:
-
+        os.system("clear")
         print("""
     
                                         ====================================

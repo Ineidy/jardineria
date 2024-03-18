@@ -1,31 +1,54 @@
 import json
-from tabulate import tabulate
+from tabulate import tabulate 
 import requests
 import os
 
-def getAllDatacliente():
-     # json-server storage/cliente.json -b 5001
-    peticioncli= requests.get("http://172.16.100.118:5001")
-    datacli = peticioncli.json()
-    return datacli
-
-
 def postClientes():
-        producto = {
-        "codigo_cliente": int(input("Ingrese El codigo del cliente: ")),
-        "nombre_cliente": input("Ingrese el nombre del cliente: "),
-        "nombre_contacto": input("Ingrese el nombre del contacto: "),
-        "apellido_contacto": input("Ingrese el apellido del contact: "),
-        "telefono": int(input("Ingrese el Telefono: ")),
-        "fax": int(input("Ingrese el fax")),
-        "linea_direccion1": input("Ingrese la linea de direccion #1: "),
-        "linea_direccion2": input("Ingrese la linea de direccion #2: "), 
-        "ciudad": input("Ingrese la ciudad: "),
-        "region": input("Ingrese la region: "),
-        "pais": input("Ingrese el pais: "),
-        "codigo_postal": int(input("Ingrese el codigo postal")),
-        "codigo_empleado_rep_ventas": input("Ingrese el codigo del representante de ventas: "),
-        "limite_credito": float(input("Ingrese el limite de credito:"))
-        }
+    clientes = {
+        "codigo_cliente": int(input("Ingresa el codigo del cliente: ")),
+        "nombre_cliente": input("ingresa el nombre del cliente: "),
+        "nombre_contacto": input("ingresa el nombre del contacto: "),
+        "apellido_contacto": input("Ingresa el apellido del contacto"),
+        "telefono": int(input("ingresa el telefono: ")),
+        "fax": int(input("Ingresa en fax del cliente: ")),
+        "linea_direccion1": input("Ingresa la linea de direccion #1: "),
+        "linea_direccion2": input("Ingresa la linea de direccion #2: "),
+        "ciudad": input("Ingresa la ciudad: "),
+        "region": input("ingresa la region: "),
+        "pais": input("Ingresa el pais: "),
+        "codigo_postal": int(input("Ingresa el codigo postal: ")),
+        "codigo_empleado_rep_ventas": int(input("Ingresa de el representante de ventas: ")),
+        "limite_credito": float(input("Ingresa el limite de credito: "))
+    }
+
+    posicionclientes = requests.post("http://192.168.10.159:5001", data=json.dumps(clientes))
+    res = posicionclientes.json()
+    res["Mensaje"] = "Cliente guardado"
+    return res
+
+
+def menu():
+    while True: 
+        os.system("clear")
+        print("""
+
+                                        ======================================
+
+                                             ADMINISTRAR DATOS DE CLIENTES
+                    
+                                        ======================================
+              
+
+
+                        1. Guardar clientes
+              
+                        0. salir
+
+
+""")
         
-#DF
+        opcion = int(input("Seleccione una opcion: "))
+        if(opcion==1):
+            print(tabulate(postClientes(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion==0):
+            break

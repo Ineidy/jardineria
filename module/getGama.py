@@ -6,9 +6,9 @@ from tabulate import tabulate
 #json-server storage/gama_producto.json -b 5003
 
 def getAllGama():
-    peticion = requests.get("http://172.16.100.118:5003")
-    data = peticion.json()
-    return data
+    peticiongama = requests.get("http://192.168.10.159:5003")
+    datagama = peticiongama.json()
+    return datagama
 
 def getAllNombre():
     gamanombre =[]
@@ -16,4 +16,3 @@ def getAllNombre():
         gamanombre.append(val.get("gama"))
     return gamanombre
 
-#D

@@ -1,15 +1,13 @@
-
-from tabulate import tabulate
-import os
 import requests
+from tabulate import tabulate
 
+
+#      json-server storage/empleado.json -b 5002
 
 def getAllDataEmpleados():
-     # json-server storage/empleado.json -b 5002
-    peticionEmple= requests.get("http://172.16.100.118:5002")
-    dataEmple = peticionEmple.json()
-    return dataEmple
-
+    peticionesempleados = requests.get("http://192.168.10.159:5002")
+    dataempleados = peticionesempleados.json()
+    return dataempleados
 
 # empleados con jefe de codigo 7 
 def getAllNombreApellidoEmailJefeNum7():

@@ -1,4 +1,4 @@
-[
+detalle_pedido = [
     {
         "codigo_pedido": 1,
         "codigo_producto": "FR-67",
