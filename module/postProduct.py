@@ -54,6 +54,8 @@ def menu():
                                                     
                                         1. Guardar Producto Nuevo
                                     
+                                        2. Eliminar
+
                                         0.salir
                 
               
@@ -63,17 +65,17 @@ def menu():
                 """)
         
         opcion = int(input("Seleccione Una opcion: "))
-        if(opcion>=0 and opcion<=1):
-            if(opcion==1):
-                print(tabulate(postProducto(), headers="keys", tablefmt='rounded_grid'))
-                input("Precione una tecla para continuar......")
-    
-            elif(opcion==2):
-                id = input("Ingrese el id de el producto que desea eliminar")
-                print(deleteproductos(id))
-            elif(opcion == 0):
-                break
-            
+        if(opcion==1):
+            print(tabulate(postProducto(), headers="keys", tablefmt='rounded_grid'))
+            input("Precione una tecla para continuar......")
+
+        elif(opcion==2):
+            id = input("Ingrese el id de el producto que desea eliminar")
+            print(deleteproductos(id))
+
+        elif(opcion == 0):
+            break
+        
 #s
 
     
