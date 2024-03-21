@@ -2,8 +2,9 @@ import json
 from tabulate import tabulate 
 import requests
 import os
+import module.getClients as reportesclientes
 
-def postClientes():
+def postCliente():
     clientes = {
         "codigo_cliente": int(input("Ingresa el codigo del cliente: ")),
         "nombre_cliente": input("ingresa el nombre del cliente: "),
@@ -21,15 +22,39 @@ def postClientes():
         "limite_credito": float(input("Ingresa el limite de credito: "))
     }
 
-    posicionclientes = requests.post("http://192.168.10.159:5001", data=json.dumps(clientes))
+    posicionclientes = requests.post("http://154.38.171.54:5001/cliente", data=json.dumps(clientes))
     res = posicionclientes.json()
     res["Mensaje"] = "Cliente guardado"
     return res
 
 
+def deleteCliente(id):
+    peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
+    if peticion.status_code == 200:
+        print("Cliente eliminaresdo")
+
+
+# def eliminarCliente(id):
+#     data = reportesclientes.getClienteCodigo(id)
+#     if(len(data)):
+#         peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
+#         if(peticion.status_code == 204):
+#             data.append({"message": "producto eliminado correctamente"})
+#             return {
+#                 "body": data, 
+#                 "status": peticion.status_code,
+#             }
+#     else:
+#         return {
+#             "body":[{
+#                 "message":"producto no encontrado",
+#                 "id": id
+#             }],
+#             "status": 400,
+#         }
+
 def menu():
     while True: 
-        os.system("clear")
         print("""
 
                                         ======================================
@@ -42,6 +67,8 @@ def menu():
 
                         1. Guardar clientes
               
+                        2. Eliminar clientes
+              
                         0. salir
 
 
@@ -49,6 +76,13 @@ def menu():
         
         opcion = int(input("Seleccione una opcion: "))
         if(opcion==1):
-            print(tabulate(postClientes(), headers="keys", tablefmt='rounded_grid'))
+            print(tabulate(postCliente(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion==2):
+            id = input("Ingrese el id de el cliente que desea eliminar")
+            print(deleteCliente(id))
         elif(opcion==0):
-            break
+            break    # json-server storage/producto.json -b 5007
+        # peticion = requests.post("http://154.38.171.54:5007", data=json.dumps(producto))
+        # res = peticion.json()
+        # res["Mensaje"] = "Producto Guardado"
+        # return [res]

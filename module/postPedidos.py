@@ -17,10 +17,15 @@ def postPedidos():
         "codigo_cliente": int(input("Ingrese el codigo del cliente: "))
     }
 
-    peticionpedi = requests.post("http://192.168.10.159:5006", data=json.dumps(pedidos))
+    peticionpedi = requests.post("http://154.38.171.54:5007/pedidos", data=json.dumps(pedidos))
     res = peticionpedi.json()
     res["Mensaje"] = "Pedido guardado"
     return res
+
+def deletepedido(id):
+    peticion = requests.delete(f"http://154.38.171.54:5007/pedidos/{id}")
+    if peticion.status_code == 200:
+        print("pedido eliminado")
 
 
 
@@ -41,7 +46,7 @@ def menu():
 
 
                             1. Guardar datos de pedidos
-              
+                            2. Eliminar
                             0. Salir
               
 """)
@@ -50,5 +55,8 @@ def menu():
         if(opcion==1):
             print(tabulate(postPedidos(), headers="keys", tablefmt='rounded_grid'))
             print("Oprima una tecla para continuar........")
+        elif(opcion==2):
+            id = input("Ingrese el id del pedido que desea eliminar")
+            print(deletepedido(id))
         elif(opcion==0):
             break

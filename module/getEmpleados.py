@@ -5,7 +5,7 @@ from tabulate import tabulate
 #      json-server storage/empleado.json -b 5002
 
 def getAllDataEmpleados():
-    peticionesempleados = requests.get("http://192.168.10.159:5002")
+    peticionesempleados = requests.get("http://154.38.171.54:5003/empleados")
     dataempleados = peticionesempleados.json()
     return dataempleados
 

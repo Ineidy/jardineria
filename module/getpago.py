@@ -6,7 +6,7 @@ import module.getEmpleados as reportesempleados
 
 def getAllDataPago():
      # json-server storage/pago.json -b 5005
-    peticionpago= requests.get("http://192.168.10.159:5005")
+    peticionpago= requests.get("http://154.38.171.54:5006/pagos")
     datapago = peticionpago.json()
     return datapago
 

@@ -13,11 +13,16 @@ def postPagos():
         "total": int(input("Ingresa el total del pago: "))
     }
 
-    peticionpago = requests.post("http://192.168.10.159:5005", data=json.dumps(pagos))
+    peticionpago = requests.post("http://154.38.171.54:5006/pagos", data=json.dumps(pagos))
     res=peticionpago.json()
     res["Mensaje"] = "Pago guardado"
     return res 
 
+
+def deletepago(id):
+    peticion = requests.delete(f"http://154.38.171.54:5006/pagos/{id}")
+    if peticion.status_code == 200:
+        print("pago eliminado")
 
 
 
@@ -36,12 +41,15 @@ def menu():
 
               
                         1. Guadar pago
-              
+                        2. Eliminar
                         0.salir
 """)
         
         opcion = int(input("Selecione una opcion: "))
         if(opcion==1):
             print(tabulate(postPagos(),headers="keys", tablefmt='rounded_grid'))
+        elif(opcion==2):
+            id = input("Ingrese el id del pago que desea eliminar")
+            print(deletepago(id))
         elif(opcion==2):
             break

@@ -5,7 +5,7 @@ import requests
 
 def getAllDataPedidos():
      # json-server storage/pedido.json -b 5006
-    peticionpedidos= requests.get("http://192.168.10.159:5006")
+    peticionpedidos= requests.get("http://154.38.171.54:5007/pedidos")
     datapedidos = peticionpedidos.json()
     return datapedidos
 

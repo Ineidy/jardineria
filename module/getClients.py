@@ -6,10 +6,13 @@ import module.getEmpleados as reportesempleados
 
 #      # json-server storage/cliente.json -b 5001
 def getAllDataClientes():
-    peticionesclientes = requests.get("http://192.168.10.159:5001")
+    peticionesclientes = requests.get("http://154.38.171.54:5001/cliente")
     dataclientes = peticionesclientes.json()
     return dataclientes
 
+def getClienteCodigo(codigo):
+    peticion=requests.get(f"http://154.38.171.54:5001/cliente/{codigo}")
+    return[peticion.json()] if peticion.ok else []
 
 def getAllClientesName():
     clienteName = []
@@ -100,19 +103,19 @@ def getAllClientsMadridRepVentas30o11():
 
 
 
-#obtener un listado con el nombre de cada cliente y el nombre y apellido del representante de ventas
-def getAllClientesReprVentas():
-    clientsReprVentas = []
-    for val in getAllDataClientes():
-        for i in reportesempleados:
-            if val.get("codigo_empleado_rep_ventas") == i.get("codigo_empleado"):
-                clientsReprVentas.append(
-                    {
-                     "Nombre":val.get('nombre_cliente'),
-                     "Apellidos": f'{i.get("apellido1")}{i.get("apellido2")}'
-                    }
-                )
-    return clientsReprVentas
+# #obtener un listado con el nombre de cada cliente y el nombre y apellido del representante de ventas
+# def getAllClientesReprVentas():
+#     clientsReprVentas = []
+#     for val in getAllDataClientes():
+#         for i in reportesempleados:
+#             if val.get("codigo_empleado_rep_ventas") == i.get("codigo_empleado"):
+#                 clientsReprVentas.append(
+#                     {
+#                      "Nombre":val.get('nombre_cliente'),
+#                      "Apellidos": f'{i.get("apellido1")}{i.get("apellido2")}'
+#                     }
+#                 )
+#     return clientsReprVentas
 
         
         
@@ -126,7 +129,7 @@ def menu():
 
                                         ======================================
 
-                                                CREPORTES DE CLIENTES
+                                                REPORTES DE CLIENTES
                     
                                         ======================================
                                                                                                 
@@ -144,7 +147,7 @@ def menu():
 
             6. obtener listado con todos los clientes que sean de la ciudad de Madrid y cuyo representante de ventas tenga el codigo de empleado 11 o 30.
               
-            7. obtener cada cliente con su representante de ventas
+            7. obtener cada cliente con su representante de ventas (FUERA DE SERVICIO)
               
             0. Salir
 
@@ -177,8 +180,8 @@ def menu():
         elif(opcion==6):
             print(tabulate(getAllClientsMadridRepVentas30o11(), headers="keys", tablefmt='rounded_grid'))
 
-        elif(opcion==7):
-            print(tabulate(getAllClientesReprVentas(),headers="keys", tablefmt='rounded_grid'))
+        # elif(opcion==7):
+        #     print(tabulate(getAllClientesReprVentas(),headers="keys", tablefmt='rounded_grid'))
 
         elif(opcion==0):
             break

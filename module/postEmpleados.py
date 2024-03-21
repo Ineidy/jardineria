@@ -17,11 +17,15 @@ def postEmpleados():
         "puesto": input("Ingresa el puesto del empleado: ")
     }
 
-    peticionempleado = requests.post("http://192.168.10.159:5002", data=json.dumps(empleados))
+    peticionempleado = requests.post("http://154.38.171.54:5003/empleados", data=json.dumps(empleados))
     res = peticionempleado.json()
     res["Mensaje"] = "Empleado Guardado"
-    return res
+    return res       
 
+def deleteEmple(id):
+    peticion = requests.delete(f"http://154.38.171.54:5003/empleados/{id}")
+    if peticion.status_code == 200:
+        print("Empleado eliminado")
 
 def menu():
     while True: 
@@ -39,6 +43,8 @@ def menu():
 
                         1. Guardar empleado
               
+                        2. Eliminar
+              
                         0. Salir
 
 """)
@@ -46,6 +52,9 @@ def menu():
         opcion = int(input("Seleccione una opcion: "))
         if(opcion==1):
             print(tabulate(postEmpleados(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion==2):
+            id = input("Ingrese el id de el empleado que desea eliminar")
+            print(deleteEmple(id))
         elif(opcion==0):
             break 
     

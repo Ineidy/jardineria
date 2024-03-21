@@ -2,7 +2,7 @@ import os
 import module.getClients as reportesclientes
 import module.getOficina as reportesoficinas
 import module.getpago as reportespagos
-
+import json
 import module.getEmpleados as reportesempleados
 import module.getPedidos as reportespedidos
 import module.getProductos as reportesproductos
@@ -16,7 +16,7 @@ import module.postPedidos as guardarpedidos
 
 def menupedidos():
     while True:
-        os.system("clear")
+
         print("""
 
                                         ======================================
@@ -222,15 +222,107 @@ if (__name__ == '__main__'):
                                 0. salir
     """)
         
+        opcion = int(input("Seleccione una de las opciones: "))
+        if(opcion == 1):
+            menuclientes()
+        elif(opcion == 2):
+            menuoficinas()
+        elif(opcion == 3):
+            menuempleados()
+        elif(opcion == 4):
+            menupedidos()
+        elif(opcion == 5):
+            menupago()
+        elif(opcion == 6):
+            menuproductos()
+        elif(opcion==0):
+            break
 
-        try:
-            opcion = int(input("\n Seleccione una de las opciones: "))
-
-        except ValueError as error: 
-            print(dir(error))
 
 
 
+if (__name__ == '__main__'):
+
+    with open("storage/cliente.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/cliente.json", "wb+") as f1:
+            f1.write(data)
+            f1.close() 
+
+    with open("storage/detalle_pedido.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/detalle_pedido.json", "wb+") as f1:
+            f1.write(data)
+            f1.close() 
+
+    with open("storage/empleado.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/empleado.json", "wb+") as f1:
+            f1.write(data)
+            f1.close() 
+
+    with open("storage/gama_producto.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/gama_producto.json", "wb+") as f1:
+            f1.write(data)
+            f1.close() 
+
+    with open("storage/oficina.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/oficina.json", "wb+") as f1:
+            f1.write(data)
+            f1.close() 
+
+    with open("storage/pago.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/pago.json", "wb+") as f1:
+            f1.write(data)
+            f1.close() 
+
+    with open("storage/pedido.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/pedido.json", "wb+") as f1:
+            f1.write(data)
+            f1.close() 
+
+    with open("storage/producto.json", "r") as f:
+        fichero = f.read()
+        data = json.loads(fichero)
+        for i, val in enumerate(data):
+            data[i]["id"] = (i+1)
+        data = json.dumps(data, indent=4).encode("utf-8")
+        with open("storage/producto.json", "wb+") as f1:
+            f1.write(data)
+            f1.close()
+            f1.close() 
 
 
 
@@ -240,17 +332,4 @@ if (__name__ == '__main__'):
 
 
 
-        # if(opcion == 1):
-        #     menuclientes()
-        # elif(opcion == 2):
-        #     menuoficinas()
-        # elif(opcion == 3):
-        #     menuempleados()
-        # elif(opcion == 4):
-        #     menupedidos()
-        # elif(opcion == 5):
-        #     menupago()
-        # elif(opcion == 6):
-        #     menuproductos()
-        # elif(opcion==0):
-        #     break
+

@@ -7,7 +7,7 @@ import requests
 # mostrando en primer lugar los de mayor precio.
 def getAllDataProducto():
     # json-server storage/producto.json -b 5007
-    peticion = requests.get("http://192.168.10.159:5007")
+    peticion = requests.get("http://154.38.171.54:5008/productos")
     data = peticion.json()
     return data
 

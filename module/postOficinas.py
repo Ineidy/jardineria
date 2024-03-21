@@ -17,10 +17,15 @@ def postOficinas():
     
     }
 
-    peticionoficina = requests.post("http://192.168.10.159:5004", data=json.dumps(oficinas))
+    peticionoficina = requests.post("http://154.38.171.54:5005/oficinas", data=json.dumps(oficinas))
     res = peticionoficina.json()
     res["Mensaje"] = "Oficina guardada"
     return res
+
+def deleteOfi(id):
+    peticion = requests.delete(f"http://154.38.171.54:5005/oficinas/{id}")
+    if peticion.status_code == 200:
+        print("Oficina eliminado")
 
 
 
@@ -40,7 +45,7 @@ def menu():
                
 
                         1. Guardar oficina
-               
+                        2. Eliminar
                         0. Salir
                
 """)
@@ -48,6 +53,9 @@ def menu():
         opcion = int(input("Seleccione una opcion: "))
         if(opcion==1):
             print(tabulate(postOficinas(), headers="keys", tablefmt='rounded_grid'))
+        elif(opcion==2):
+            id = input("ingrese el id de la oficina que desea eliminar")
+            print(deleteOfi(id))
         elif (opcion==0):
             break
                 
