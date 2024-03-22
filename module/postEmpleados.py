@@ -22,6 +22,12 @@ def postEmpleados():
     res["Mensaje"] = "Empleado Guardado"
     return res       
 
+def getAllDataEmpleados():
+    peticionesempleados = requests.get("http://154.38.171.54:5003/empleados")
+    dataempleados = peticionesempleados.json()
+    return dataempleados
+
+
 def deleteEmple(id):
     peticion = requests.delete(f"http://154.38.171.54:5003/empleados/{id}")
     if peticion.status_code == 200:

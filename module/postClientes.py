@@ -27,6 +27,10 @@ def postCliente():
     res["Mensaje"] = "Cliente guardado"
     return res
 
+def getAllDataClientes():
+    peticionesclientes = requests.get("http://154.38.171.54:5001/cliente")
+    dataclientes = peticionesclientes.json()
+    return dataclientes 
 
 def deleteCliente(id):
     peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")

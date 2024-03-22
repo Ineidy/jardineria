@@ -52,7 +52,6 @@ def getAllInfoPais(pais):
 
 def menu():
     while True:
-        os.system("clear")
         print("""
     
                                         ====================================

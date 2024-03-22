@@ -28,80 +28,97 @@ def getAllCodigoEstado():
 #de entrega de pedidos que no han sido entregados a tiempo
 
 
+
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado = []
-    for val in getAllDataPedidos():
-        if val.get("estado") == "Entregado" and val.get("fecha_entrega") is None:
-            val["fecha_entrega"] = val.get("fecha_esperada")
-        if val.get("estado") == "Entregado":
-            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
-            date_2 = "/".join(val.get("fecha_esperada").split("-")[::-1])
+    for pedidos in getAllDataPedidos():
+        if (pedidos.get("estado") == "Entregado" and pedidos.get("fechaEntrega") is None):
+            pedidos["fechaEntrega"]= pedidos.get("fecha_esperada")
+            
+        if pedidos.get("estado") == "Entregado":
+
+            date_1 = "/".join(pedidos.get("fechaEntrega").split("-")[::-1])
+            date_2 = "/".join(pedidos.get("fecha_esperada").split("-")[::-1])
             start = datetime.strptime(date_1, "%d/%m/%Y")
-            end =   datetime.strptime(date_2, "%d/%m/%Y")
+            end = datetime.strptime(date_2, "%d/%m/%Y")
             diff = end.date() - start.date()
-            if(diff.days < 0):
+            if diff.days < 0 :
                 pedidosEntregado.append({
-                    "código_de_pedido": val.get("codigo_pedido"),
-                    "código_de_cliente": val.get("codigo_cliente"),
-                    "fecha_esperada": val.get("fecha_esperada"),
-                    "fecha_de_entrega": val.get("fecha_entrega"),
+                    "codigo_pedido": pedidos.get("codigo_pedido"),
+                    "codigo_cliente": pedidos.get("codigo_cliente"),
+                    "fecha_esperada": pedidos.get("fecha_esperada"),
+                    "fecha_de_entrega": pedidos.get("fechaEntrega")
                 })
+
     return pedidosEntregado
 
 #Pedidos con fecha de espera de menos de dos dias
-def getAllCodigosFechaEsperaEntregaMenosDosDias():
-    PedidosAceptados = []
+def getAllPedAntesFechaEsperada():
+    pedidosAntesFechaEsperada = []
     for val in getAllDataPedidos():
-        if (val.get("estado") == "Entregado") and val.get("fecha_entrega") is None:
-            val["fecha_entrega"] = val.get("fecha_esperada")
-        if val.get("estado") == "Entregado":
-            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1]) 
+
+        if (val.get("estado") == "Entregado" and val.get("fechaEntrega") is None):
+            val["fechaEntrega"]= val.get("fecha_esperada")
+            
+        if(val.get("estado") == "Entregado"):
+
+            date_1 = "/".join(val.get("fechaEntrega").split("-")[::-1])
             date_2 = "/".join(val.get("fecha_esperada").split("-")[::-1])
             start = datetime.strptime(date_1, "%d/%m/%Y")
-            end =   datetime.strptime(date_2, "%d/%m/%Y")
+            end = datetime.strptime(date_2, "%d/%m/%Y")
             diff = end.date() - start.date()
-            if diff.days >= 2:
-                PedidosAceptados.append({
+            if diff.days >= 2 :
+                pedidosAntesFechaEsperada.append({
+                    "codigo_pedido": val.get("codigo_pedido"),
+                    "codigo_cliente": val.get("codigo_cliente"),
+                    "fecha_esperada": val.get("fecha_esperada"),
+                    "fecha_de_entrega": val.get("fechaEntrega")
+                })
+
+    return pedidosAntesFechaEsperada
+
+#pedidos rechazados en 2009
+def getAllPedRechazadosEn2008():
+    pedidosRechazadosEn2008 = []
+    for val in getAllDataPedidos():
+        if val.get("estado") == "Rechazado":
+            if val.get("fecha_pedido")[0:4] == "2008" and val.get("fecha_esperada")[0:4] == "2008":
+                pedidosRechazadosEn2008.append({
+                    "codigo_pedido": val.get("codigo_pedido"),
+                    "codigo_cliente": val.get("codigo_cliente"),
+                    "fecha_esperada": val.get("fecha_esperada"),
+                    "estado": val.get("estado"),
+                    "fecha_de_entrega": val.get("fecha_entrega")
+                })
+
+    return pedidosRechazadosEn2008
+
+
+# Devuelve un listado de todos los pedidos q han sido entregados en el mes de enero de cualquier año
+
+def getAllPedEntEnero():
+    AllPedEntEnero = []
+    for val in getAllDataPedidos():
+
+        if (val.get("estado") == "Entregado" and val.get("fecha_entrega") is None):
+            val["fecha_entrega"]= val.get("fecha_esperada")
+
+        if val.get("estado") == "Entregado":
+
+            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
+            start = datetime.strptime(date_1, "%d/%m/%Y")
+        
+             
+            if start.month == 1  :
+                AllPedEntEnero.append({
                     "codigo_pedido": val.get("codigo_pedido"),
                     "codigo_cliente": val.get("codigo_cliente"),
                     "fecha_esperada": val.get("fecha_esperada"),
                     "fecha_de_entrega": val.get("fecha_entrega")
-
                 })
 
-    return PedidosAceptados
-    
-#pedidos rechazados en 2009
+    return AllPedEntEnero
 
-def getAllPedidosRechazados():
-    pedidosRechazados = []
-    for val in getAllDataPedidos():
-        if("2009") in val.get("fecha_pedido") and val.get("estado") is ("Rechazado"):
-            pedidosRechazados.append({
-
-                    "codigo_pedido": val.get("codigo_pedido"),
-                    "Fecha De Rechazo": val.get("fecha_pedido"),
-                    "estado_pedido": val.get("estado")
-                })
-    return pedidosRechazados
-            
-
-# Devuelve un listado de todos los pedidos q han sido entregados en el mes de enero de cualquier año
-def getAllPedidosEntregadosEnero():
-    pedidosEntregadosMes = []
-    for val in getAllDataPedidos():
-        fecha_entrega = val.get("fecha_entrega")
-        if fecha_entrega:
-            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
-            start = datetime.strptime(date_1, "%d/%m/%Y")
-            if start.month == 1 and val.get("estado") == "Entregado":
-                pedidosEntregadosMes.append({
-                    "codigo_pedido": val.get("codigo_pedido"),
-                    "codigo_de_cliente": val.get("codigo_cliente"),
-                    "fecha_de_entrega": val.get("fecha_entrega"),
-                    "estado_pedido": val.get("estado")
-                })
-    return pedidosEntregadosMes
 
 
 def menu():
@@ -125,7 +142,7 @@ def menu():
             
                                 3. Pedidos con fecha de espera de menos de dos dias.
             
-                                4. Pedidos rechazados en 2009.
+                                4. Pedidos rechazados en 2008.
             
                                 5. Pedidos entregados en enero de cualquier año.
               
@@ -142,11 +159,11 @@ def menu():
         elif(opcion == 2):
             print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="rounded_grid"))
         elif(opcion == 3):
-            print(tabulate(getAllCodigosFechaEsperaEntregaMenosDosDias(), headers="keys", tablefmt="rounded_grid"))
+            print(tabulate(getAllPedAntesFechaEsperada(), headers="keys", tablefmt="rounded_grid"))
         elif(opcion == 4):
-            print(tabulate(getAllPedidosRechazados(),headers="keys", tablefmt="rounded_grid"))
+            print(tabulate(getAllPedRechazadosEn2008(),headers="keys", tablefmt="rounded_grid"))
         elif(opcion == 5):
-            print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt="rounded_grid"))
+            print(tabulate(getAllPedEntEnero(), headers="keys", tablefmt="rounded_grid"))
         elif(opcion == 0):
             break
 

@@ -12,30 +12,34 @@ def getAllDataProducto():
     return data
 
 
-def getAllStocksPriceGama(gama, stock):
+
+def getAllStockPriceGama(gama, stock):
     condiciones = []
     for val in getAllDataProducto():
-        if(val.get("gama") == gama and val.get("cantidad_en_stock") >= stock):
+        if(val.get("gama") == gama and val.get("cantidadEnStock") >= stock):
             condiciones.append(val)
+
     def price(val):
-        return val.get("precio_venta")    
+
+        return val.get("precio_venta")
     condiciones.sort(key=price, reverse=True)
+
     for i, val in enumerate(condiciones):
+
+        if(condiciones[i].get("descripcion")):
+            condiciones[i]["descripcion"] = f'{val.get("descripcion")[:5]}...'
+        
         condiciones[i] = {
-                "codigo": val.get("codigo_producto"),
-                "venta": val.get("precio_venta"),
-                "nombre": val.get("nombre"),
-                "gama": val.get("gama"),
-                "dimensiones": val.get("dimensiones"),
-                "proveedor": val.get("proveedor"),
-                "descripcion": f'{val.get("descripcion")[:5]}...' if condiciones[i].get("descripcion") else None,
-                "stock": val.get("cantidad_en_stock"),
-                "base": val.get("precio_proveedor")
-            }
+            "codigo":val.get("codigo_producto"),
+            "venta":val.get("precio_venta"),
+            "nombre":val.get("nombre"),
+            "gama":val.get("gama"),
+            "dimensiones":val.get("dimensiones"),
+            "proveedor":val.get("proveedor"),
+            "descripcion":val.get("descripcion"),
+            "stock":val.get("cantidadEnStock")
+        }
     return condiciones
-
-
-
 
 # def getProductCodigo(codigo):
 #     for val in getAllDataProducto():
@@ -71,7 +75,7 @@ def menu():
         if(opcion==1):
             gama = str(input("Ingrese la gama que deseas filtrar: "))
             stock = int(input("Ingrese las unidades que seas mostrar: "))
-            print(tabulate(getAllStocksPriceGama(gama, stock), headers="keys", tablefmt="github"))
+            print(tabulate(getAllStockPriceGama(gama, stock), headers="keys", tablefmt="github"))
         elif(opcion == 0):
             break
         

@@ -1,4 +1,6 @@
 import os
+import module.postEmpleados as postemp
+import module.postClientes as postcli
 import requests
 from tabulate import tabulate
 import module.getEmpleados as reportesempleados
@@ -104,20 +106,20 @@ def getAllClientsMadridRepVentas30o11():
 
 
 # #obtener un listado con el nombre de cada cliente y el nombre y apellido del representante de ventas
-# def getAllClientesReprVentas():
-#     clientsReprVentas = []
-#     for val in getAllDataClientes():
-#         for i in reportesempleados:
-#             if val.get("codigo_empleado_rep_ventas") == i.get("codigo_empleado"):
-#                 clientsReprVentas.append(
-#                     {
-#                      "Nombre":val.get('nombre_cliente'),
-#                      "Apellidos": f'{i.get("apellido1")}{i.get("apellido2")}'
-#                     }
-#                 )
-#     return clientsReprVentas
+def getAllClientRep():
+    allClientRep = []
+    for val in postcli.getAllDataClientes():
+        for val2 in postemp.getAllDataEmpleados():
+            if val.get("codigo_empleado_rep_ventas") == val2.get("codigo_empleado") and val2.get("puesto") == "Representante Ventas":
+                allClientRep.append(
+                    {
+                        "nombre": val.get("nombre_cliente"),
+                        "nombre_rep": val2.get("nombre"),
+                        "apellido_rep": f"{val2.get('apellido1')}  {val2.get('apellido2')}"
+                    }
+                )
+    return allClientRep
 
-        
         
 
 
@@ -147,7 +149,7 @@ def menu():
 
             6. obtener listado con todos los clientes que sean de la ciudad de Madrid y cuyo representante de ventas tenga el codigo de empleado 11 o 30.
               
-            7. obtener cada cliente con su representante de ventas (FUERA DE SERVICIO)
+            7. obtener cada cliente con su representante de ventas 
               
             0. Salir
 
@@ -180,8 +182,8 @@ def menu():
         elif(opcion==6):
             print(tabulate(getAllClientsMadridRepVentas30o11(), headers="keys", tablefmt='rounded_grid'))
 
-        # elif(opcion==7):
-        #     print(tabulate(getAllClientesReprVentas(),headers="keys", tablefmt='rounded_grid'))
+        elif(opcion==7):
+            print(tabulate(getAllClientRep(),headers="keys", tablefmt='rounded_grid'))
 
         elif(opcion==0):
             break

@@ -18,6 +18,10 @@ def postPagos():
     res["Mensaje"] = "Pago guardado"
     return res 
 
+def getAllDataPago():
+    peticion = requests.get("http://154.38.171.54:5006/pagos")
+    data = peticion.json()
+    return data
 
 def deletepago(id):
     peticion = requests.delete(f"http://154.38.171.54:5006/pagos/{id}")
